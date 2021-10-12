@@ -1,0 +1,72 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-image: url("https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg");
+    border-style:double;
+    border-color: blue;
+    font-size: large;
+    font-family: cursive;
+}
+
+header{
+    background-color:blue;
+    text-align: center;
+    padding: 2%;
+    color:white;
+    border-style:double;
+    border-color: cornsilk;
+}
+nav{
+    background-color: black;
+    color: white;
+    padding: 2%;
+}
+nav ul{
+    display: flex;
+    /*removes bullets*/
+    list-style-type: none;
+    justify-content: center;
+}
+
+nav ul li a:link,nav ul li a:visited{
+    color: white;
+    color:blue;
+    padding: 10px;
+}
+.sections{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;/*flexbox box model*/
+    border-style:double;
+    border-color: blue;
+}
+.sec1{
+    background-color:blue;
+    padding:3%;
+    color: white;
+}
+.sec2{
+    background-color: yellow;
+    padding:3%;
+    width: 60%;
+}
+
+/*style the <a> tages (both unvisited and visited links)
+inside the <..class="sec1">*/
+.sec1 a:link, .sec1 a:visited{
+    color:white;
+}
+
+.sec1 a:hover{
+    background-color: white;
+    color: black;
+}
+
+footer{
+    padding: 20px;
+    background-color: blue;
+    color: white;
+}

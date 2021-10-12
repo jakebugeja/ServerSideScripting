@@ -1,0 +1,23 @@
+body {
+    background-color: coral;
+}
+
+header{
+    background-color:darkgreen;
+    text-align: center;
+    padding: 2%;
+    color:white;
+}
+
+.sections{
+    display: flex;/*flexbox box model*/
+}
+.sec1{
+    background-color:crimson;
+    padding:3%;
+}
+.sec2{
+    background-color: yellow;
+    padding:3%;
+    width: 60%;
+}
