@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Intro to PHP</title>
   </head>
   <body>
     <?php
@@ -28,7 +28,38 @@
         echo "<br>Total price would be &euro:".($laptopPriceWithoutVAT+$laptopVAT);
 
     ?>
+    <hr>
+    <h2>Forms</h2>
+    <div class="col-8 offset-2">
+      <h3>VAT Calculator</h3>
 
+      <?php
+      //isset = check if some post data is sent
+      if(isset($_POST['submit_btn'])){
+        echo "The form was submitted";
+        // $_POST = accessing the post data
+        // $_POST is an array !
+        $price = floatval($_POST['price']);//casting to float
+
+        $priceVAT = VAT_RATE * $price;
+
+        echo "<div class='alert alert-primary'>";
+        echo "The VAT due on &euro: $price is &euro: $priceVAT";
+        echo "<br>The total price would be &euro: ".($price +$priceVAT);
+        echo "</div>";
+      }else{//if no post data is sent 
+        echo "<div class='alert alert-warning'>";
+        echo "Please anter a price and press 'Calculate VAT'";
+        echo "</div>";
+      }
+      ?>
+
+      </hr>
+      <form method="POST" action ="index.php">
+        <input type="number"step="0.1" placeholder="Enter price" class="form-control" name="price"/>
+        <input type="submit" value="Calculate VAT" class="btn btn-danger mt-4 w-100" name="submit_btn"/>
+      </form>
+    </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
