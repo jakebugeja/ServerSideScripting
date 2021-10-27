@@ -1,0 +1,14 @@
+//[2]The query is a MySQL select statement assigned to a PHP variable:
+$query = "SELECT * FROM tbl_books WHERE price>5.00";
+
+//[3]To perform the query, it needs to be in a query statement:
+$result = mysqli_query($conn, $query)
+or die("Error in query: ". mysqli_error($conn));
+//the above sends a unique query to the currently active database
+
+//[4]The variable $result contains a resource that allows other PHP MySQL functions to get individual rows and fields in the database. Used when requiring to retrieve data only – WHEN USING SELECT STATEMENT.
+//mysqli_fetch_assoc($result), which gets an associative array with
+the field names as the indexes, e.g.
+while ($row = mysqli_fetch_assoc($result)){
+echo "$row[book_id] $row[title] $row[author] $row[price] <br/>";
+}

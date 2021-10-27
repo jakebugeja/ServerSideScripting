@@ -1,0 +1,5 @@
+//passing a value from the parameter
+?post_id=<?php echo $row['id'];?>
+
+//storing value
+ $getID=$_GET['post_id'];

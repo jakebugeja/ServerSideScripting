@@ -1,0 +1,17 @@
+//include connection file (optional)
+    //require_once('connect.php');
+    //generate SQL command to delete the post
+    $query = "DELETE FROM posts WHERE id=$getID";
+
+    //To perform the query, it needs to be in a query statement:
+    $result = mysqli_query($conn, $query)
+    or die("Error in query: ". mysqli_error($conn));
+    //the above sends a unique query to the currently active database
+        
+
+    //check if the row was deleted
+    if(mysqli_affected_rows($link)==1){
+        echo('Deletion Sucessful');
+    }else{
+        echo('Deletion Unsucessful');
+    }

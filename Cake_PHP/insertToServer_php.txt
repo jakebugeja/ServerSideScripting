@@ -1,0 +1,4 @@
+//[5] insert into database
+//[6] if (!empty($firstName)) && (!empty($lastName)) 
+$query = "INSERT INTO email_list (firstName, lastName, email)
+VALUES ('$first_name', '$last_name', '$email')";
