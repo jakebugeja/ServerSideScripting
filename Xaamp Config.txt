@@ -1,0 +1,15 @@
+1. Install Xaamp 8.0/7.4
+Config (top right)>Editor:notepad++.exe/VScode.exe
+Xaamp>httpd.conf (Apache)>
+	line 58:[Change port 'listen 80' --> new port:'listen 8084']
+	line 252-253: [Change 'DocumentRoot' && 'Directory'--> new path: Github Directory] (Note: filepath should not contain spaces)
+
+
+2. htdocs	
+Xaamp>Start>Admin>[Check if htdocs is opened]
+		-->[!opened]>[create folder 'htdocs' in the 'DocumentRoot' && 'Directory' filepath]
+
+
+3. Xaamp troubleshooting:
+Xaamp>httpd-ssl.conf (Apache)>
+	line 36: [Change port 'Listen 443' --> new port: 'Listen 444']
