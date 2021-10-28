@@ -32,16 +32,16 @@
         }
 
         //super 5 function
+        //generate 5 unique numbers
         function super5(){
             $randArray = array();
             
-            while(count($randNum) < 5){
+            while(count($randArray) < 6){
                 $randNum = rand(1,45);
 
                 if(!in_array($randNum,$randArray)){
-                    print("Adding: $randomNumber<br>");
-                }else{
-                    print("$randNum alreaDY GENERATED...<br>");
+                    //print("Adding: $randomNumber<br>");
+                    array_push($randArray,$randNum);
                 }
             }
             
@@ -53,8 +53,11 @@
         echo "<br>".outputDivision(20,6);
         $method2Ans = outputDivision2(10,3);
         echo "<br>$method2Ans[2] = $method2Ans[0] r $method2Ans[1]";
-        foreach($array()=super5()) as $num){
-            print($num." ");
+
+        $getArray = super5();//store array
+        echo "<br>Super 5 Lottery: <br>";
+        foreach ($getArray as $value) {
+            echo "$value, ";//print each item in array 12 32 18 21 23
         }
     ?>
     
