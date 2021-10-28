@@ -30,6 +30,12 @@
         echo "<hr>I live in {$countries['mt']} but i would like to visit ".$countries['uk']." this year!";
         echo "<br>";
         print_r($countries);
+
+      echo "<h2>Superglobal Array - _SERVER</h2>";
+      $user_ip = $_SERVER['REMOTE_ADDR'];
+      $useragent = $_SERVER['HTTP_USER_AGENT'];
+
+      echo "IP: $user_ip<br>User Agent: $useragent";
       ?>
     </div>
 
