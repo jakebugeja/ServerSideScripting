@@ -108,13 +108,270 @@ display a message indicating that the user won.
             }//could not include else if in this case, reason: it was going in noth if and else if
         }
         if(slotMachine()==TRUE){
-            echo "<br>Q15)You WON the slot machine!<br>";
+            echo "<br>Q15)You WON the slot machine!";
         }else{
-            echo "<br>Q15)You LOST the slot machine!<br>";
+            echo "<br>Q15)You LOST the slot machine!";
 
         }
         
+        /*
+        16. Write a program to display the numbers from 1 to 10 using a for loop. Write another for()
+loop to display the numbers from 10 down to 1.
+        */
+        function loopFoward(){
+            $numbers = array();
+            for($i=1;$i<11;$i++){
+                array_push($numbers,$i);
+            }
+            return $numbers;
+        }
+        function loopBackwards(){
+            $numbers = array();
+            for($i=10;$i>0;$i--){
+                array_push($numbers,$i);
+            }
+            return $numbers;
+        }
+        echo "<br>Q16) Displaying 1-10: ";
+        $getFowardLoop=loopFoward();
+        foreach($getFowardLoop as $value){
+            echo "{$value}, ";
+        }
+        echo "<br>Q16) Displaying 10-1: ";
+        $getBackwardLoop=loopBackwards();
+        foreach($getBackwardLoop as $value){
+            echo "{$value}, ";
+        }
 
+        /*
+        17. Write a program to display all the even numbers from 1 to 50 using a for() loop. 
+        */
+        function displayEven($from,$end){
+            $counter=$from;
+            $numbers = array();
+            while($counter<=$end){
+                if($counter%2==0){
+                    array_push($numbers,$counter);
+                }
+                $counter++;
+            }
+            return $numbers;
+        }
+        echo "<br>Q17) Dispalying even numbers 1 - 50: ";
+        $getEvens = displayEven(1,50);
+        foreach($getEvens as $value){
+            echo "{$value}, ";
+        }
+
+        /*
+        18. Write a php program that should create the following output. The numbers should be
+incremented by the use of loops. (Use for loop,while loop and do while loop)
+        */
+        function whileCounter(){
+            $numbers = array();
+            $counter = 1;
+            while($counter<=10){
+                array_push($numbers,$counter);
+                $counter++;
+            }
+            return $numbers;
+        }
+        function doWhileCounter(){
+            $numbers = array();
+            $counter = 1;
+            do{
+                array_push($numbers,$counter);
+                $counter++;
+            }while($counter <=10);
+            return $numbers;
+        }
+
+        echo "<br>Q18) for loop: ";
+        foreach($getFowardLoop as $value){
+            echo "{$value}...";
+        }
+        $getWhileLoop = whileCounter();
+        echo "<br>Q18) while loop: ";
+        foreach($getWhileLoop as $value){
+            echo "{$value}...";
+        }
+        $getDoWhileLoop = doWhileCounter();
+        echo "<br>Q18) do while loop: ";
+        foreach($getDoWhileLoop as $value){
+            echo "{$value}...";
+        }
+
+        /*
+        19. Write a program to display the multiplication table of 8, for the numbers 1-10. Again use a
+for loop, a while loop and a do while loop.
+        */
+        function forLoopMultTable(){
+            $getArray = loopFoward();
+            $numbers = array();
+            $c = count($getArray);
+            for($i=0;$i<$c;$i++){
+                array_push($numbers,$getArray[$i]*8);
+            }
+            return $numbers;
+        }
+        function whileLoopMultTable(){
+            $getArray = loopFoward();
+            $numbers = array();
+            $counter = 0;
+            $c = count($getArray);
+            while($counter < $c){
+                array_push($numbers,$getArray[$counter]*8);
+                $counter++;
+            }
+            return $numbers;
+        }
+        function doWhileLoopMultTable(){
+            $getArray = loopFoward();
+            $numbers = array();
+            $counter = 0;
+            $c = count($getArray);
+            do{
+                array_push($numbers,$getArray[$counter]*8);
+                $counter++;
+            }while($counter < $c);
+            return $numbers;
+        }
+
+        echo "<br>Q19) for loop (x8): ";
+        $getForLoopMultTable = forLoopMultTable();
+        foreach($getForLoopMultTable as $value){
+            echo "{$value}, ";
+        }
+        echo "<br>Q19) while loop (x8): ";
+        $getWhileLoopMultTable = whileLoopMultTable();
+        foreach($getWhileLoopMultTable as $value){
+            echo "{$value}, ";
+        }
+        echo "<br>Q19) do while loop (x8): ";
+        $getDoWhileLoopMultTable = doWhileLoopMultTable();
+        foreach($getDoWhileLoopMultTable as $value){
+            echo "{$value}, ";
+        }
+
+        /*
+        20. Initialize an array containing 10 elements. Place a random value in each of the 10
+elements (from 1 to 10) using a for loop. By means of a for loop, display all the array
+elements in the following fashion:
+        */
+        function generateRand($count){
+            $numbers = array();
+            for($i=0;$i<$count;$i++){
+                $genNum = rand(1,100);
+                array_push($numbers,$genNum);
+            }
+            return $numbers;
+        }
+        echo "<br>Q20) Generating 10 random numbers: ";
+        $getRandNumbers = generateRand(10);
+        for($i=0;$i<count($getRandNumbers);$i++){
+            echo "<br>Array element {$i}. Value contained is ".$getRandNumbers[$i];
+        }
+
+        /*
+        21. Write a while loop that outputs the even numbers from 6 to 20
+        */
+        echo "<br>Q21) Dispalying even numbers 6 - 20: ";
+        $getEvens2 = displayEven(6,20);
+        foreach($getEvens2 as $value){
+            echo "{$value}, ";
+        }
+        
+        /*
+        22. Write a while loop that outputs the numbers from 100 to 0 by 10's
+        */
+        function loopBackwardsBy($from, $end, $by){
+            $numbers = array();
+            $c = $from;
+            while($c >= $end){
+                
+                array_push($numbers, $c);
+                $c= $c - $by;
+            }
+            return $numbers;
+        }
+        echo "<br>Q22) Displaying 100 - 0 by -10: ";
+        $getloopBackwardsBy10 = loopBackwardsBy(100,0,10);
+        foreach($getloopBackwardsBy10 as $value){
+            echo "{$value}, ";
+        }
+
+        //Skipping 22 -24
+
+        /*
+        25. Use a for loop to develop the following output:
+        */
+        for($i=0;$i<6;$i++){
+            echo '<p style="background-color:tomato;">'.$i.'</p>';
+            $i++;
+            echo '<p style="background-color:green;">'.$i.'</p>';
+        }
+        /*
+        26. Create an infinite loop using while (true) and then use the break when (counter == 10) to
+stop the loop.
+        */
+        $isTrue = FALSE;
+        echo "<br>Q26) Dispaly 0 - counter";
+        $counter = 0;
+        while($isTrue == FALSE){
+            if($counter <=10){
+                echo "{$counter}, ";
+                $counter++;
+            }else{
+                $isTrue=TRUE;
+            }
+        }
+
+        /*
+        27. Create a for loop that prints from 0 to 4 using variable $i. When $i is equal to 2 use the
+command continue not to print the value (2). Hence the following output should be produced:
+        */
+        echo "<br>Q27) Dispalying 0-4 (!2): ";
+        for($i=0;$i<=4;$i++){
+            if($i!=2){
+                echo "{$i}, ";
+            }else{
+                continue;
+            }
+        }
+
+        /*
+        28. Switch exercise – Create a variable $destination and assign to it a random generated number
+between 1 to 10. If the number generated is 1 “Going to Las Vegas” should be displayed, if 2 is
+generated “Going to Amsterdam” should be displayed, 3 – “Going to Egypt”, 4 - “Going to
+Tokyo”. If a number between 5 and 10 is generated “Going nowhere” should be displayed.
+        */
+        function travelDestination($from,$end){
+            $status = array();
+            $randNum = rand($from,$end);
+            switch($randNum){
+                case 1:
+                    array_push($status,"Going to Las Vegas");
+                    break;
+                case 2:
+                    array_push($status,"Going to Amsterdam");
+                    break;
+                case 3:
+                    array_push($status,"Going to Egypt");
+                    break;
+                case 4:
+                    array_push($status,"Going to Tokyo");
+                    break;
+                default:
+                    array_push($status, "Going nowhere");
+                    break;
+            }
+            return $status;
+        }
+        echo "<br>Q28) ";
+        $getDestination = travelDestination(1,10);
+        foreach($getDestination as $value){
+            echo "{$value}";
+        }
     ?>
     
 </body>
