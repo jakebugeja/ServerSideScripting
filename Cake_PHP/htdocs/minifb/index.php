@@ -14,8 +14,14 @@
             require_once('connect.php');
         ?>
         <h2>List of Posts</h2>
-
-        <?php   
+            <?php
+                //Insert Posts
+                if(isset($_POST['submit'])){
+                        require_once('add.php');
+                }
+            ?>
+            <?php   
+            //Retrieve and show Posts
             $sqlGetPosts = "SELECT * FROM posts";
 
             //send sql command (string) to mysql server
@@ -31,41 +37,42 @@
                     echo "<hr>";
                     echo "<p>".$row['description']."</p>";
                     echo "<p> Posted: ".date('dS F Y H:i', $row['time'])."</p>";
+                    //<a href='../sample/passed-data-via-url.php?name=Jim'>To Bridge</a>
+                    echo '<a href=delete.php?id='.$row["id"].'>Delete Post</a>';
                 }
             }
-        ?>
+            ?>
+            <?php
+                //Was delete.php successful 
+                //is delete == 0 || is delete == 1 (passed in parameter)
+                require_once("connect.php");
+                if (isset($_GET['deleted'])){//if recieved
+
+                    if(isset($_GET['deleted']==1){
+                        echo '<div class="alert alert-primary" role="alert">
+                                Post successfully deleted
+                            </div>';
+                    }
+                    else if(isset($_GET['deleted']==0){
+                        echo '<div class="alert alert-primary" role="alert">
+                                Post unsuccessfully deleted
+                            </div>';
+                    }
+                }else{
+                    continue;
+                }
+            ?>
             <hr>
             <form action="index.php" method="post">
-                    <label>Title:</label>
-                    <input type="text" class="form-control" name="title" placeholder="Enter title">
-                    <label>Description:</label>
-                    <input type="text" class="form-control" name="desc" placeholder="Enter description"><br>
+                <label>Title:</label>
+                <input type="text" class="form-control" name="title" placeholder="Enter title">
+                <label>Description:</label>
+                <input type="text" class="form-control" name="desc" placeholder="Enter description"><br>
 
-                    <input type="submit" name="submit" class="btn btn-secondary" value="Add Post"/>
-            
-                </form>
-            
-            <?php
-            if(isset($_POST['submit'])){
-                $title=$_POST['title'];
-                $desc=$_POST['desc'];
-
-                //[5] insert into database
-                if (!empty($title) && !empty($desc)) {
-                    require("connect.php");
-
-                    $query = "INSERT INTO posts (title, description) VALUES ('$title', '$desc')";
-                    mysqli_query($link,$query) or die(mysqli_error($link));
-                }
-                
-            }
-        ?>
-        
+                <input type="submit" name="submit" class="btn btn-secondary" value="Add Post"/>
+            </form>
         </div>
     </div>
-    <?php
-        require("connect.php");
-    ?>
     
 </body>
 </html>
