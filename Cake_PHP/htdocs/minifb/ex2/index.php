@@ -17,28 +17,30 @@
             <?php
                 //Insert Posts
                 if(isset($_POST['submit'])){
-                        require_once('add.php');
+                        require_once('add.php');//execute add.php
+                }else{
+                    require("classes/Post.php");//continue below code
                 }
             ?>
             <?php   
-            //Retrieve and show Posts
-            $sqlGetPosts = "SELECT * FROM posts";
+            
+            //to access static mathods without an instance of the class, hence ::
+            $allPosts = Post::getAll();
+            if(count($allPosts)>0){
+                echo '<div class="alert alert-primary">Showing '.count($allPosts).' post(s)</div>';
+            }
 
-            //send sql command (string) to mysql server
-            $result = mysqli_query($link, $sqlGetPosts);
-            //the above sends a unique query to the currently active database
+            if(count($allPosts)>0){//if the number of retrieved rows from the server > 0
 
-            if(mysqli_num_rows($result)>0){//if the number of retrieved rows from the server > 0
-
-                echo '<div class="alert alert-primary">Showing '.mysqli_num_rows($result).' post(s)</div>';
-
-                while ($row = mysqli_fetch_assoc($result)){
-                    echo "<h5>".$row['title']."</h5>";
+                echo '<div class="alert alert-primary">Showing '.count($allPosts).' post(s)</div>';
+                //looping through an array (replaced tbe while loop) 
+                foreach ($allPosts as $singlePost){
+                    echo "<h5>".$singlePost->title."</h5>";
                     echo "<hr>";
-                    echo "<p>".$row['description']."</p>";
-                    echo "<p> Posted: ".date('dS F Y H:i', $row['time'])."</p>";
+                    echo "<p>".$singlePost->description."</p>";
+                    echo "<p> Posted: ".date('dS F Y H:i', $singlePost->time)."</p>";
                     //<a href='../sample/passed-data-via-url.php?name=Jim'>To Bridge</a>
-                    echo '<a href=delete.php?id='.$row["id"].'>Delete Post</a>';
+                    echo '<a href=delete.php?id='.$singlePost->id.'>Delete Post</a>';
                 }
             }
             ?>

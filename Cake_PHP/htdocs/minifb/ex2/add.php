@@ -5,13 +5,18 @@ $time = time();
 
 //[5] insert into database
 if (!empty($title) && !empty($desc)) {
-    require("connect.php");
+    require("classes/Post.php");
+    $newPost = new Post($title,$desc,$time);
 
-    $query = "INSERT INTO posts (title, description, time) VALUES ('$title', '$desc','$time')";
-    mysqli_query($link,$query) or die(mysqli_error($link));
-
-    echo '<div class="alert alert-primary" role="alert">
-    Post - Successfully Added!</div>';
+    
+    if($newPost->addPost() == true){
+        echo '<div class="alert alert-primary" role="alert">
+        Post - Successfully Added!</div>';
+    }else{
+        echo '<div class="alert alert-warning" role="alert">
+        Post - Something went wrong!</div>';
+    }
+    
 }
 
 ?>

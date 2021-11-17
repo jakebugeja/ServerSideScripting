@@ -5,7 +5,7 @@ class Post{
     public $title;
     public $description;
 
-    public function __contruct($_title, $_description, $_time){
+    public function __construct($_title, $_description, $_time=""){
         $this->title = $_title;
         $this->description = $_description;
         if($_time == "")
@@ -27,20 +27,32 @@ class Post{
         $result = mysqli_query($link, $sqlGetPosts);
         //the above sends a unique query to the currently active database
 
+        $allPosts = array();//creating an array
+
         if(mysqli_num_rows($result)>0){
             //empty array
-            $posts = array();//creating an array
+            
 
             while ($row = mysqli_fetch_assoc($result)){
                 $newPost = new Post($row['title'],$row['description'],$row['time']);
-                $newPost = $row['id'];
+                $newPost->id= $row['id'];
 
                 //append the post instance to $posts array
                 $allPosts[] = $newPost;//pushing every object to an array
             }
             return $allPosts;//return array with all the posts
         }
-        return null;
+        return $allPosts;
+    }
+    //add method 
+    public function addPost(){
+        require("connect.php");
+
+        $query = "INSERT INTO posts (title, description, time) VALUES 
+            ('{$this->title}', '{$this->description}','{$this->time}')";
+        mysqli_query($link,$query) or die(mysqli_error($link));
+    
+        return true;
     }
 }
 

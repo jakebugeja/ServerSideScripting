@@ -29,14 +29,19 @@
 
     //to access static mathods without an instance of the class, hence ::
     $allPosts = Post::getAll();
+    //if the array is not empty
+    if(count($allPosts)>0){
+        echo "<pre>";
+        print_r($allPosts); 
+        echo "</pre>";
 
-    echo "<pre>";
-    print_r($allPosts); 
-    echo "</pre>";
-
-    //go through all the posts (array of objects)
-    foreach($allPosts as $singlePost){
-        echo $singlePost->title ."<hr>";
+        //go through all the posts (array of objects)
+        foreach($allPosts as $singlePost){
+            echo $singlePost->title ."<hr>";
+        }
+    }else{
+        echo "no posts available - test.php";
     }
+    
     
 ?>
