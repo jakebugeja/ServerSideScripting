@@ -1,0 +1,4 @@
+phpMyAdmin>create database>add table_name(follow cake guidelines)>add table_row
+config>schema>app_local.php>username = [root], 
+			    password = [empty],
+			    database => [database name]
