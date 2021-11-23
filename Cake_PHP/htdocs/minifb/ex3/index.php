@@ -26,12 +26,9 @@
             
             //to access static mathods without an instance of the class, hence ::
             $allPosts = Post::getAll();
-            if(count($allPosts)>0){
-                echo '<div class="alert alert-primary">Showing '.count($allPosts).' post(s)</div>';
-            }
 
             if(count($allPosts)>0){//if the number of retrieved rows from the server > 0
-
+                //alert user with number of posts
                 echo '<div class="alert alert-primary">Showing '.count($allPosts).' post(s)</div>';
                 //looping through an array (replaced tbe while loop) 
                 foreach ($allPosts as $singlePost){
