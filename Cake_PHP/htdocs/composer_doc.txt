@@ -1,0 +1,7 @@
+cmd>cd [paste htdocs]
+htdocs: C:\Users\bugej\Documents\LocalGitProject\ServerSideScripting\Cake_PHP\htdocs
+composer.phar is in the file explorer 
+cmd> cd [htdocs path] [tab/tab tab (until .phar is visible)]
+
+[Create App]
+composer create-project --prefer-dist cakephp/app:~4.0 my_app_name
