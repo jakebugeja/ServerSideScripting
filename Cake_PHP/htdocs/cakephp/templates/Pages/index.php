@@ -1,1 +1,1 @@
-<p>Hello this is my main page</p>
+Hello from Pages/index.php :D
