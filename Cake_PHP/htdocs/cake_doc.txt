@@ -1,0 +1,12 @@
+1. src/controller/PagesController>
+	[index()-->empty action]
+
+2. templates/Pages/index.php>
+	[template should be empty]
+
+3. config/routes.php>
+	[modify base path-->$builder->connect('/', ['controller' => 'Pages', 'action' => 'index']);]
+	
+4.templates/layout/default.php>
+	[add bootstrap link]
+	[(optional) add navbar and remove  comments]
