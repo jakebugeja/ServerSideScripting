@@ -20,4 +20,27 @@ class UsersController extends AppController
       //pr($allUsers); testing purposes
       //die;
     }
+    public function add() {
+        //we need to check if the form was submitted. We need to check if the request is POST
+        if ($this->request->is("post")) {
+           
+           //this is the model defined in /src/Model/Table/UsersTable.php
+           $usersTable = $this->fetchTable('Users');
+  
+           //data from the form ($_POST)
+           //$data = $this->request->getData();
+           //pr($data);
+  
+           $newUser = $usersTable->newEntity($this->request->getData());
+  
+           if ($usersTable->save($newUser)) {
+              $this->Flash->success("User has been saved!");
+  
+              return $this->redirect(['action' => 'index']);
+           }
+           else {
+              $this->Flash->error("Something wrong happened during user insertion");
+           }
+        }
+     }
 }

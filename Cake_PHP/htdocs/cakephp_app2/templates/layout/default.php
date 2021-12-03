@@ -34,7 +34,7 @@
     
         <footer class="text-center text-muted">
             <hr>
-            <p>My CakePHP App - Thomas Gatt</p>
+            <p>My CakePHP App - Jake Bugeja</p>
         </footer>
     </div>
 
