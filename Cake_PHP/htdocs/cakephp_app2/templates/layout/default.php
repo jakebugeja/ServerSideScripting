@@ -21,6 +21,9 @@
                                                                      <!-- Url->build("/"), go to base class-->
             </li>
             <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="<?=$this->Url->build("/users")?>">Users</a>                
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="<?=$this->Url->build("/pages/about")?>">About</a>                
             </li>
         </ul>

@@ -8,6 +8,7 @@
 	[class should contain a namespace,class name,function index()]
 
 3. config/routes.php>
+	Note: Setting the base class
 	[modify base path-->$builder->connect('/', ['controller' => 'Pages', 'action' => 'index']);]
 	
 4.templates/layout/default.php>		
