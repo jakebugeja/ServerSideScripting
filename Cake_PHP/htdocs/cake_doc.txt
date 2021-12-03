@@ -4,9 +4,18 @@
 2. templates/Pages/index.php>
 	[template should be empty]
 
+4.src/controller/PagesController.php>
+	[class should contain a namespace,class name,function index()]
+
 3. config/routes.php>
 	[modify base path-->$builder->connect('/', ['controller' => 'Pages', 'action' => 'index']);]
 	
-4.templates/layout/default.php>
+4.templates/layout/default.php>		
+	Note: default.php consists of the header, navbar and footers
 	[add bootstrap link]
 	[(optional) add navbar and remove  comments]
+
+5.Create database from phpMyAdmin
+
+6. config/app_local.php>
+	DatasourcesArray>username='root',password='',database='[database name]'

@@ -1,0 +1,1 @@
+Hello from the pages/index.php file (template view)
