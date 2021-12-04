@@ -25,10 +25,10 @@ if (count($allUsers) > 0) {
             echo "<td>".$user->first_name."</td>";
             echo "<td>".$user->last_name."</td>";
 
-            //$editLink = $this->Url->build("/users/edit/".$user->id);
-            //echo '<td><a href="'.$editLink.'" class="btn btn-warning">Edit</a>';
-            //$deleteLink = $this->Url->build("/users/delete/".$user->id);
-            //echo '<td><a href="'.$deleteLink.'" class="btn btn-warning">Delete</a>';
+            $editLink = $this->Url->build("/users/edit/".$user->id);
+            echo '<td><a href="'.$editLink.'" class="btn btn-warning">Edit</a>';
+            $deleteLink = $this->Url->build("/users/delete/".$user->id);
+            echo '<td><a href="'.$deleteLink.'" class="btn btn-danger">Delete</a>';
             
         echo "</tr>";
     }
@@ -36,9 +36,7 @@ if (count($allUsers) > 0) {
     echo "</table>";
 }
 else
-    echo "No users available";
+    echo "No users available!";
 
 ?>
-<!--
-    button add user
--->
+<a href="<?=$this->Url->build("/users/add")?>" class="btn btn-primary mt-2">Add a new user</a>

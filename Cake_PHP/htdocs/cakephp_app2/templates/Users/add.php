@@ -8,14 +8,13 @@
     echo $this->Form->create();
     echo "<br><br>";
     //Creating Form Controls
-    echo $this->Form->control('first_name', ['required' => true,
-                                            'class' => 'form_control']);
-    echo "<br>";
-    echo $this->Form->control('last_name', ['required' => true,
-                                            'class' => 'form_control']);
+    echo $this->Form->control('first_name', ['required' => false,
+                                            'class' => 'form-control mb-3']);
+    echo $this->Form->control('last_name', ['required' => false,
+                                            'class' => 'form-control mb-3']);
     echo "<br>";
     echo $this->Form->control('email', ['required' => true,
-                                        'class' => 'form_control']);
+                                        'class' => 'form-control mb-3']);
     //Creating Buttons and Submit Elements
     echo $this->Form->submit("Add user",['class' => "btn btn-primary mt-3 btn-block"]);
     echo $this->Form->end();

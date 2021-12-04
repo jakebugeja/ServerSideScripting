@@ -44,7 +44,7 @@ class UsersController extends AppController
              $errors_messages="";
              $errors = $newUser->getErrors();
              foreach ($errors as $value){
-                 $errors_messages .= array_values($value)[0]."<br>;"//.= , this appends to a string
+                 $errors_messages .= array_values($value)[0]."<br>;";//.= , this appends to a string
              }
 
             $this->Flash->error("Something wrong happened during user insertion<br>$error_messages",
