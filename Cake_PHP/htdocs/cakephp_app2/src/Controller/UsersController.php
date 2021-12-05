@@ -31,7 +31,11 @@ class UsersController extends AppController
             
            //Converting Request Data into Entities
             //getData(), ,get post data from the form
-           $newUser = $usersTable->newEntity($this->request->getData());
+           //$newUser = $usersTable->newEntity($this->request->getData());
+
+           $newUser = $usersTable->newEntity(array());
+            $newUser->first_name = strip_tags($this->request->getData('first_name'));
+            $newUser->last_name = strip_tags($this->request->getData('last_name'));         
   
            if ($usersTable->save($newUser)) {//save() will sace the changes
               $this->Flash->success("User has been saved!");
