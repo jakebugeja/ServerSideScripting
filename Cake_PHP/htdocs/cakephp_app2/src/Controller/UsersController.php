@@ -39,15 +39,13 @@ class UsersController extends AppController
            
            //this is the model defined in /src/Model/Table/UsersTable.php
            $usersTable = $this->fetchTable('Users');
-            
-           //Converting Request Data into Entities
-            //getData(), ,get post data from the form
-           //$newUser = $usersTable->newEntity($this->request->getData());
 
+           //45:get data from form, store it in $data
+            //46:modify data of first_name and last_name --> strip_tags (for additional security)
            $data = $this->request->getData();
             $data['first_name'] = strip_tags($this->request->getData('first_name'));
             $data['last_name'] = strip_tags($this->request->getData('last_name'));         
-  
+
             $newUser = $usersTable->newEntity($data);
 
            if ($usersTable->save($newUser)) {//save() will sace the changes
