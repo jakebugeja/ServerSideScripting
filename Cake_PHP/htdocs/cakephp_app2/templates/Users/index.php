@@ -15,6 +15,7 @@ if (count($allUsers) > 0) {
         echo "<th>ID</th>";
         echo "<th>First Name</th>";
         echo "<th>Last Name</th>";
+        echo "<th>Town Name</th>";
         echo "<th>Edit</th>";
         echo "<th>Delete</th>";
     echo "</tr>";
@@ -24,6 +25,7 @@ if (count($allUsers) > 0) {
             echo "<td>".$user->id."</td>";
             echo "<td>".$user->first_name."</td>";
             echo "<td>".$user->last_name."</td>";
+            echo "<td>".$user->town_id."</td>";
 
             $editLink = $this->Url->build("/users/edit/".$user->id);
             echo '<td><a href="'.$editLink.'" class="btn btn-warning">Edit</a>';

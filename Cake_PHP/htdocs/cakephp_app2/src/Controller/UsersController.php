@@ -9,9 +9,11 @@ class UsersController extends AppController
     public function index(){
         //retrieves model (class) model/table/userTable
             //model has to be created beforhand
-      $usersTable = $this->getTableLocator()->get('users');
+      $usersTable = $this->getTableLocator()->get('users');//same as fetchTable()
       //get all users from UsersTable model
-      $allUsers = $usersTable->find()->toArray();
+      $allUsers = $usersTable->find()->contain(['Towns'])->all();//OR
+
+      //$allUsers = $this->fetchTable('Users')->find()->contain(['Towns'])->all();
 
       //SEND $allUsers TO index.php usder the name $allUsers,
         //which is set by the first parameter
@@ -21,6 +23,15 @@ class UsersController extends AppController
       //die;
     }
     public function add() {
+         //This code is related to towns[select option]
+         //get towns model
+         $townsTable = $this->fetchTable('Towns');//same as getTableLocater()
+         $allTowns = $townsTable->find('list')->toArray();
+            //find('list'), will gather the id and it's value from FK
+               //ex. 1 => 'First post',
+                     //2 => 'Second article I wrote',
+        $this->set('allTowns',$allTowns);
+
         //reference: https://book.cakephp.org/4/en/orm/saving-data.html
 
         //we need to check if the form was submitted. We need to check if the request is POST
@@ -33,10 +44,12 @@ class UsersController extends AppController
             //getData(), ,get post data from the form
            //$newUser = $usersTable->newEntity($this->request->getData());
 
-           $newUser = $usersTable->newEntity(array());
-            $newUser->first_name = strip_tags($this->request->getData('first_name'));
-            $newUser->last_name = strip_tags($this->request->getData('last_name'));         
+           $data = $this->request->getData();
+            $data['first_name'] = strip_tags($this->request->getData('first_name'));
+            $data['last_name'] = strip_tags($this->request->getData('last_name'));         
   
+            $newUser = $usersTable->newEntity($data);
+
            if ($usersTable->save($newUser)) {//save() will sace the changes
               $this->Flash->success("User has been saved!");
   

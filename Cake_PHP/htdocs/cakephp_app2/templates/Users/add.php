@@ -15,6 +15,9 @@
     echo "<br>";
     echo $this->Form->control('email', ['required' => true,
                                         'class' => 'form-control mb-3']);
+    echo $this->Form->control('town_id', ['options' => $allTowns,
+                                        'required' => false,
+                                        'class' => 'form-control mb-3']);                                        
     //Creating Buttons and Submit Elements
     echo $this->Form->submit("Add user",['class' => "btn btn-primary mt-3 btn-block"]);
     echo $this->Form->end();

@@ -15,6 +15,13 @@ class UsersTable extends Table
     Request data will be validated.
     Valid data will be set into the entity, while fields that failed validation will be excluded.
     */
+    
+    //many to one relationship with TownsTable.php
+    //reference: https://book.cakephp.org/4/en/orm/associations.html#
+    public function initialize(array $config):void
+    {
+        $this->belongsTo('Towns');
+    }
 
     public function validationDefault(Validator $validator): Validator
     {
