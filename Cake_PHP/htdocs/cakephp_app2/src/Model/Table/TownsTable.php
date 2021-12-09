@@ -11,7 +11,8 @@ class TownsTable extends Table{
 
         //reference: https://book.cakephp.org/4/en/orm/retrieving-data-and-resultsets.html
         //Finding Key/Value Pairs
-        $this->setDisplayField('town_name');
+        $this->setDisplayField('town_name');//inorder to view the towns_name from Users/add view,
+                                        //from the select option
     }
 
 

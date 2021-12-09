@@ -1,6 +1,6 @@
 <h2>Users -Index</h2>
 
-<p>This page will list all the users currently in the database</p>
+    <p>This page will list all the users currently in the database</p>
 
 <?php
     //NOTE:
@@ -25,7 +25,7 @@ if (count($allUsers) > 0) {
             echo "<td>".$user->id."</td>";
             echo "<td>".$user->first_name."</td>";
             echo "<td>".$user->last_name."</td>";
-            echo "<td>".$user->town_id."</td>";
+            echo "<td>".$user->town->town_name."</td>";
 
             $editLink = $this->Url->build("/users/edit/".$user->id);
             echo '<td><a href="'.$editLink.'" class="btn btn-warning">Edit</a>';

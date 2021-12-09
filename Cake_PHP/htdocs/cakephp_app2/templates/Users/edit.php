@@ -17,7 +17,12 @@
                                                     ]);
 
             echo $this->Form->control("last_name",  ['placeholder' => 'Enter your surname', 'label' => false, 'class' => 'form-control']);
+            echo $this->Form->control('town_id', ['options' => $allTowns,//options: the names of the 
+                                                            //select items in the view
+                                        'required' => false,
+                                        'class' => 'form-control mb-3']);
             echo $this->Form->submit("Edit User", ['class' => 'btn btn-primary mt-3']);
+
             echo $this->Form->end();
 
         ?>

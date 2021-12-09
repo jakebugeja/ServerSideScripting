@@ -24,6 +24,9 @@
                 <a class="nav-link active" aria-current="page" href="<?=$this->Url->build("/users")?>">Users</a>                
             </li>
             <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="<?=$this->Url->build("/towns")?>">Towns</a>                
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="<?=$this->Url->build("/pages/about")?>">About</a>                
             </li>
         </ul>

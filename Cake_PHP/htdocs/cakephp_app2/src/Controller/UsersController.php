@@ -12,43 +12,42 @@ class UsersController extends AppController
       $usersTable = $this->getTableLocator()->get('users');//same as fetchTable()
       //get all users from UsersTable model
       $allUsers = $usersTable->find()->contain(['Towns'])->all();//OR
+         //contain() is similiar to JOIN USERS AND TOWNS, 
+            //fetch all users containing a relationship with TOWN
 
-      //$allUsers = $this->fetchTable('Users')->find()->contain(['Towns'])->all();
-
-      //SEND $allUsers TO index.php usder the name $allUsers,
+      //SEND $allUsers TO index.php under the name $allUsers,
         //which is set by the first parameter
       $this->set('allUsers',$allUsers);
       //note that $allUsers contain an array of Entity (User) objects
-      //pr($allUsers); testing purposes
-      //die;
     }
     public function add() {
          //This code is related to towns[select option]
          //get towns model
          $townsTable = $this->fetchTable('Towns');//same as getTableLocater()
+         //reference: https://book.cakephp.org/4/en/orm/retrieving-data-and-resultsets.html
          $allTowns = $townsTable->find('list')->toArray();
-            //find('list'), will gather the id and it's value from FK
-               //ex. 1 => 'First post',
-                     //2 => 'Second article I wrote',
+            //find('list'), will return the id and it's value
+               //ex. 1 => 'id:1',(Marsaskala)
+                     //2 => 'id:2',(Mosta)
+            //to switch id into town_name, use setDisplayField(), inside TownsTable
+            
         $this->set('allTowns',$allTowns);
 
         //reference: https://book.cakephp.org/4/en/orm/saving-data.html
-
         //we need to check if the form was submitted. We need to check if the request is POST
         if ($this->request->is("post")) {
            
            //this is the model defined in /src/Model/Table/UsersTable.php
            $usersTable = $this->fetchTable('Users');
 
-           //45:get data from form, store it in $data
-            //46:modify data of first_name and last_name --> strip_tags (for additional security)
-           $data = $this->request->getData();
+           $data = $this->request->getData();//get data from form, store it in $data
+            //strip_tags (for additional security)
             $data['first_name'] = strip_tags($this->request->getData('first_name'));
             $data['last_name'] = strip_tags($this->request->getData('last_name'));         
 
             $newUser = $usersTable->newEntity($data);
 
-           if ($usersTable->save($newUser)) {//save() will sace the changes
+           if ($usersTable->save($newUser)) {//save() will save the changes
               $this->Flash->success("User has been saved!");
   
               return $this->redirect(['action' => 'index']);
@@ -74,6 +73,17 @@ class UsersController extends AppController
       $userToEdit = $usersTable->findById($id)->first();//OR
          //$userToEdit = $usersTable->get($id);
 
+      //get towns model
+      $townsTable = $this->fetchTable('Towns');//same as getTableLocater()
+      //reference: https://book.cakephp.org/4/en/orm/retrieving-data-and-resultsets.html
+      $allTowns = $townsTable->find('list')->toArray();
+         //find('list'), will return the id and it's value
+            //ex. 1 => 'id:1',(Marsaskala)
+                  //2 => 'id:2',(Mosta)
+         //to switch id into town_name, use setDisplayField(), inside TownsTable
+         
+      $this->set('allTowns',$allTowns);
+
       //check if form is submitted
       if ($this->request->is(['post', 'put'])) {
          //patchEntity(), instead of create() this method is used to update entity
@@ -90,7 +100,7 @@ class UsersController extends AppController
         }
       }
       
-      //send userToEdit to edit.php (view)
+      //send userToEdit populate input fields for edit.php (view)
       $this->set("userToEdit", $userToEdit);
    }
    public function delete($id){

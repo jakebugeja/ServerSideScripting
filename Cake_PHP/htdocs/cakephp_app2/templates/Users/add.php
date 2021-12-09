@@ -1,7 +1,7 @@
 <h2>Add a new User</h2>
 
 <?php
-//reference: https://book.cakephp.org/4/en/views/helpers/form.html
+//reference: https://book.cakephp.org/4/en/viewas/helpers/form.html
 //reference: lesson 13 2020, 6.2A  
 
     //creating the form tag , <form> 
@@ -15,7 +15,8 @@
     echo "<br>";
     echo $this->Form->control('email', ['required' => true,
                                         'class' => 'form-control mb-3']);
-    echo $this->Form->control('town_id', ['options' => $allTowns,
+    echo $this->Form->control('town_id', ['options' => $allTowns,//options: the names of the 
+                                                            //select items in the view
                                         'required' => false,
                                         'class' => 'form-control mb-3']);                                        
     //Creating Buttons and Submit Elements
