@@ -81,14 +81,26 @@ class TownsController extends AppController
     }
     public function showResidents($id){
         //get towns model
-        $townsTable = $this->findById('Towns');//same as getTableLocater()
+        $townsTable = $this->fetchTable('Towns');//same as getTableLocater()
         //$usersInTown
-        $usersInTown = $townsTable->findById($id)->contain(['Users'])->first();
-
+        $usersInTown = $townsTable->findById($id)->contain(['Users'])->toArray();//retrieve
+            //all users where townId(FK inside Users) == townId(PK inside towns)
         
-
-        pr($usersInTown);
-        die;
+        //SEND $usersInTown TO index.php under the name usersInTown,
+        //which is set by the first parameter
+        $this->set('usersInTown',$usersInTown);
+     }
+     public function test($id){
+         //get towns model
+        $townsTable = $this->fetchTable('Towns');//same as getTableLocater()
+        //$usersInTown
+        $usersInTown = $townsTable->findById($id)->contain(['Users'])->first();//retrieve
+            //all users where townId(FK inside Users) == townId(PK inside towns)
+        //pr($usersInTown);
+        //die;
+        //SEND $usersInTown TO index.php under the name usersInTown,
+        //which is set by the first parameter
+        $this->set('usersInTown',$usersInTown);
      }
 }
 
