@@ -1,0 +1,18 @@
+cake_php
+Conventions:
+https://book.cakephp.org/3/en/intro/conventions.html
+
+URL/Links/Navigation
+https://book.cakephp.org/4/en/views/helpers/url.html
+
+Get data (POST) from form
+-->Request Body Data
+https://book.cakephp.org/3/en/controllers/request-response.html
+
+Retrieve data for <select>
+-->Finding Key/Value Pairs
+https://book.cakephp.org/4/en/orm/retrieving-data-and-resultsets.html 
+
+Send data to View
+-->Setting View Variables
+https://book.cakephp.org/4/en/controllers.html#setting-view-variables
