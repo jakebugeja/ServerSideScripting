@@ -79,5 +79,17 @@ class TownsController extends AppController
         //delete.php not needed
         return $this->redirect(['action' => 'index']);
     }
+    public function showResidents($id){
+        //get towns model
+        $townsTable = $this->fetchTable('Towns');//same as getTableLocater()
+        //$usersInTown
+        $usersInTown = $townsTable->find('all')->contain(['Users']);
+        foreach ($query as $ids) {
+            echo $ids->townsTable->id;
+        }
+
+        pr($usersInTown);
+        die;
+     }
 }
 
