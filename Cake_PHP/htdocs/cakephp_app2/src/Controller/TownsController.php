@@ -81,12 +81,11 @@ class TownsController extends AppController
     }
     public function showResidents($id){
         //get towns model
-        $townsTable = $this->fetchTable('Towns');//same as getTableLocater()
+        $townsTable = $this->findById('Towns');//same as getTableLocater()
         //$usersInTown
-        $usersInTown = $townsTable->find('all')->contain(['Users']);
-        foreach ($query as $ids) {
-            echo $ids->townsTable->id;
-        }
+        $usersInTown = $townsTable->findById($id)->contain(['Users'])->first();
+
+        
 
         pr($usersInTown);
         die;
