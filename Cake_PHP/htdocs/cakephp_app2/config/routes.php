@@ -72,6 +72,13 @@ return static function (RouteBuilder $routes) {
         $builder->fallbacks();
     });
 
+    //reference: https://book.cakephp.org/4/en/development/routing.html#resource-routes
+    //lesson 22 1:01 : https://mcastedu.sharepoint.com/sites/IT-SWD-6.2A-ITSFT-506-1612ServerSideScripting/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FIT%2DSWD%2D6%2E2A%2DITSFT%2D506%2D1612ServerSideScripting%2FShared%20Documents%2FGeneral%2FRecordings%2FLesson%2022%2D20220104%5F085701%2DMeeting%20Recording%2Emp4&parent=%2Fsites%2FIT%2DSWD%2D6%2E2A%2DITSFT%2D506%2D1612ServerSideScripting%2FShared%20Documents%2FGeneral%2FRecordings
+        $routes->scope('/', function (RouteBuilder $routes) {
+            $routes->setExtensions(['json']);
+            $routes->resources('Api');
+        });
+
     /*
      * If you need a different set of middleware or none at all,
      * open new scope and define routes there.

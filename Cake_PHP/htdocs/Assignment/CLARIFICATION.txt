@@ -1,0 +1,21 @@
+Q5A)
+Get A list of trades and the like counter by a specific user (example facebook),
+create a table to store activities such as likes and store everyting in the table; tradeid, user, who liked, bool: like or dislike
+
+Releted)
+One should use postman for get, post and delete methods
+
+AUTHENTICATION ref 06:00: https://mcastedu.sharepoint.com/sites/IT-SWD-6.2A-ITSFT-506-1612ServerSideScripting/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FIT%2DSWD%2D6%2E2A%2DITSFT%2D506%2D1612ServerSideScripting%2FShared%20Documents%2FGeneral%2FRecordings%2F6%5F01%5F2022%2D20220106%5F145558%2DMeeting%20Recording%2Emp4&parent=%2Fsites%2FIT%2DSWD%2D6%2E2A%2DITSFT%2D506%2D1612ServerSideScripting%2FShared%20Documents%2FGeneral%2FRecordings
+ref: https://firebase.google.com/docs/auth/web/facebook-login#web-version-8_4
+Use firebase auth to authenticate with facebook/google
+Api will give you user data
+Communicate with the server (send ajax request, one can use jquery, see w3schools) to get a response from action
+Redirect user after data is retrieved
+
+example
+public function loginWithFb/Google(){
+      //$POST
+
+      return 1;//if ajax response is true(login successful) return 1
+      die;
+   }

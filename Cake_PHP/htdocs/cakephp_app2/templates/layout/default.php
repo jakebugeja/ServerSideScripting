@@ -29,9 +29,26 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="<?=$this->Url->build("/pages/about")?>">About</a>                
             </li>
+            <?php if(isset($loggedInUser)){?>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?=$this->Url->build("/users/logout")?>">Log Out</a>                
+                </li>
+            <?php } else{ ?>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?=$this->Url->build("/users/login")?>">Log In</a>                
+                </li>
+            <?php } ?>
         </ul>
+        
+        <?php
+        if (isset($loggedInUser)){
+            echo "You are logged in as: ".$loggedInUser->first_name;
+                                    //$loggedInUser is defined in AppController
+        }else{
+            echo "You are not logged in";
+        }
+        ?>
         <hr>
-
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
     

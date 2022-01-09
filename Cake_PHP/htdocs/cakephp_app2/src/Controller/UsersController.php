@@ -6,6 +6,38 @@ use Cake\ORM\Locator\LocatorAwareTrait;
 
 class UsersController extends AppController
 {
+   //authentication
+   //reference: https://book.cakephp.org/4/en/tutorials-and-examples/cms/authentication.html#adding-password-hashing
+   public function beforeFilter(\Cake\Event\EventInterface $event)
+   {
+      parent::beforeFilter($event);
+      // Configure the login action to not require authentication, preventing
+      // the infinite redirect loop issue
+      $this->Authentication->addUnauthenticatedActions(['login','index','add']);
+         //allow unauthenicated users to access pages inside parameter -->login
+   }
+
+   public function login()
+   {
+      $this->request->allowMethod(['get', 'post']);
+      $result = $this->Authentication->getResult(); 
+      // regardless of POST or GET, redirect if user is logged in
+      if ($result->isValid()) {
+         // redirect to /articles after login success
+         $redirect = $this->request->getQuery('redirect', [
+               'controller' => 'Users',
+               'action' => 'index',
+         ]);
+
+         return $this->redirect($redirect);
+      }
+      // display error if user submitted and authentication failed
+      if ($this->request->is('post') && !$result->isValid()) {
+         $this->Flash->error(__('Invalid username or password'));
+      }
+   }
+   //end authentication
+
     public function index(){
         //retrieves model (class) model/table/userTable
             //model has to be created beforhand
@@ -117,6 +149,19 @@ class UsersController extends AppController
       //delete.php not needed
       return $this->redirect(['action' => 'index']);
    }
-   
+   public function logout()
+   {
+    $result = $this->Authentication->getResult();
+    // regardless of POST or GET, redirect if user is logged in
+    if ($result->isValid()) {
+        $this->Authentication->logout();
+        return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+    }
+   }
+   public function loginWithFb(){
+      //$POST
 
+      return 1;//if ajax response is true(login successful) return 1
+      die;
+   }
 }

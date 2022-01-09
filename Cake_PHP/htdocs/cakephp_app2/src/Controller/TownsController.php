@@ -19,7 +19,7 @@ class TownsController extends AppController
     public function add(){
         $townsTable = $this->fetchTable('Towns');//same as getTableLocater()
         if ($this->request->is("post")){//if form was submitted
-            $data['town_name'] = strip_tags($this->request->getData());
+            $data['town_name'] = strip_tags($this->request->getData('town_name'));
                 //getData() will get user input from the post
 
             //inserting a new entity(entity is a new row filled with data)
@@ -66,7 +66,7 @@ class TownsController extends AppController
         //contain() is similiar to JOIN USERS AND TOWNS, 
            //fetch all users containing a relationship with Users, SO WE DONT DELETE
            //A TOWN WHICH IS ASSIGNED TO A USER/S
-        if(count($usersInTown->users)>0) {//if there is >=1 user assigned to town then don't 
+        if(count($usersInTown->users)>0) {//if there is >=1(users) user assigned to town then don't 
                                         //delete the town 
             $this->Flash->error("You can't delete town, town is assigned to a user/s");
         }else{

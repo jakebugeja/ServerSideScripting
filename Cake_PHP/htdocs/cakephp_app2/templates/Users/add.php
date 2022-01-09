@@ -15,6 +15,8 @@
     echo "<br>";
     echo $this->Form->control('email', ['required' => true,
                                         'class' => 'form-control mb-3']);
+    echo $this->Form->control("password");
+    
     echo $this->Form->control('town_id', ['options' => $allTowns,//options: the names of the 
                                                             //select items in the view
                                         'required' => false,

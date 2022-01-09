@@ -37,6 +37,9 @@ class AppController extends Controller
      *
      * @return void
      */
+
+    public $loggedInUser;
+
     public function initialize(): void
     {
         parent::initialize();
@@ -44,10 +47,18 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
 
-        /*
-         * Enable the following component for recommended CakePHP form protection settings.
-         * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
-         */
-        //$this->loadComponent('FormProtection');
+        //cake php
+        //reference: https://book.cakephp.org/4/en/tutorials-and-examples/cms/authentication.html#adding-password-hashing
+        // Add this line to check authentication result and lock your site
+        $this->loadComponent('Authentication.Authentication');
+
+        //if user is logged in...
+        if($user = $this->Authentication->getIdentity()){
+            //send the logged in user as $loggedInUser to ALL views (because we are in hte app controller)
+            $this->set('loggedInUser',$user);//VISABLE FROM ALL THE VIEWS
+            $this->loggedInUser = $user;//VISABLE FROM ALL THE CONTROLLERS (PUBLIC)
+
+
+        }
     }
 }

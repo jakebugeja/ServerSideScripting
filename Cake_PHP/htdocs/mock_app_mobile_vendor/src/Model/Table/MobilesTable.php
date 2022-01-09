@@ -10,4 +10,11 @@ class MobilesTable extends Table
     {
         $this->belongsTo('Brands');
     }
+    public function validationDefault(Validator $validator): Validator
+    {
+        $validator
+            ->requirePresence('model', 'create')
+            ->notEmptyString('model');
+            return $validator;
+    }
 }

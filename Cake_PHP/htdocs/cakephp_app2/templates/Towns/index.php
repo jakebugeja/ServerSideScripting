@@ -17,6 +17,7 @@ if (count($allTowns) > 0) {
         echo "<th>Edit</th>";
         echo "<th>Delete</th>";
         echo "<th>Show residents</th>";
+        echo "<th>Added</th>";
     echo "</tr>";
 
     foreach ($allTowns as $town) {
@@ -30,6 +31,7 @@ if (count($allTowns) > 0) {
             echo '<td><a href="'.$deleteLink.'" class="btn btn-danger">Delete</a>';
             $showResidentsLink = $this->Url->build("/towns/test/".$town->id);
             echo '<td><a href="'.$showResidentsLink.'" class="btn btn-primary">Show residents</a>';
+            echo "<td>".$town->created."</td>";
             
         echo "</tr>";
     }

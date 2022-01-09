@@ -1,8 +1,10 @@
+start>Edit environment variables for your account>add [php path] into environment
+
 cmd>cd [paste htdocs]
 htdocs: C:\Users\bugej\Documents\LocalGitProject\ServerSideScripting\Cake_PHP\htdocs
 
 composer.phar is in the file explorer 
-cmd> cd [htdocs path] composerS
+cmd> cd [htdocs path] composer
 
 [Create App]
 composer create-project --prefer-dist cakephp/app:~4.0 my_app_name
