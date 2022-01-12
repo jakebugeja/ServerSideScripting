@@ -7,10 +7,7 @@ class InvestmentsController extends AppController{
    public function index(){
         $investmentsTable = $this->fetchTable('Investments');
         $allInvestments = $investmentsTable->find()->contain(['Tickers'])->all();
-        //$allInvestments = $investmentsTable->find('all')->toArray();
-        //send to index
-        //pr ($allInvestments);
-        //die;
+
         $this->set('allInvestments', $allInvestments);
    }
 
@@ -23,6 +20,7 @@ class InvestmentsController extends AppController{
         $selectTicker = $query->toArray();
         //select privacy
         $selectPrivacy = array('True','False');
+
         
         //send to add
         $this->set('selectTicker',$selectTicker);//send to view
@@ -37,6 +35,8 @@ class InvestmentsController extends AppController{
 
             //get loggedinuserid
             $user = $this->loggedInUser->get('id');//get user id from controller
+            
+
             $newInvetsment->set('user_id', $user);
             if($investmentsTable->save($newInvetsment)){//push data
                 $this->Flash->success("Investment added!");
@@ -85,5 +85,42 @@ class InvestmentsController extends AppController{
      }
      //send investmentToEdit populate input fields for edit.php (view)
      $this->set("investmentToEdit", $investmentToEdit);
+    }
+    public function share($id){//id = investment id
+        $investmentsTable = $this->fetchTable('Investments'); 
+        $investmentToShare = $investmentsTable->get($id);
+        $this->set('investmentToShare',$investmentToShare);//send to view
+
+        //retrieve tickers and list items into select for options
+        $tickersTable = $this->fetchTable('Tickers');
+        $query = $tickersTable->find('list');
+        $selectTicker = $query->toArray();
+        
+        $usersTable = $this->fetchTable('Users');
+        $query = $usersTable->find('list');
+        $selectUser = $query->toArray();
+
+        $this->set('selectTicker',$selectTicker);//send to view
+        $this->set('selectUser',$selectUser);//send to view to populate
+
+        if ($this->request->is("post")) {
+            //$user = $this->request->getData('user_id');//getting selected user id
+            $data = $this->request->getData();//getting the rest of the form (disabled)
+            
+            //$investmentToShare->set('user_id', $user);
+            
+            //$investmentsTable = $this->fetchTable('Investments');
+            $investmentToShare = $investmentsTable->newEntity($data);
+            
+            //pr($investmentToShare);
+            if($investmentsTable->save($investmentToShare)){//push data
+                $this->Flash->success("Investment shared!");
+                echo "Investment added!";
+            }else{
+                $this->Flash->error("Error: InvestmentsController -- Investment not sahred");
+                echo "Error: InvestmentsController -- Investment not added";
+            }
+            
+        }
     }
 }
