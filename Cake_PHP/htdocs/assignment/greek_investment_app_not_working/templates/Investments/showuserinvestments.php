@@ -1,10 +1,13 @@
 
 <?php
 $totalPortfolio = 0;
-echo "<h2>Your investments ".count($allInvestments)."</h2>";
+echo "<h2>Your investments ".count($usersInvestments)."</h2>";
+$username = $this->Identity->get('username');//show logged in username
+
+
 echo "<div class='row'>";
-if (count($allInvestments) >= 1){
-        foreach($allInvestments as $investment){
+if (count($usersInvestments) >= 1){
+        foreach($usersInvestments as $investment){
             echo "<div class='col-sm-6'>
             <div class='card'>
             <div class='card-body'><h3>";

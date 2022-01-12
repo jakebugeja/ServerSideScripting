@@ -4,8 +4,7 @@ namespace App\Controller;
 use Cake\ORM\Locator\LocatorAwareTrait;
 
 class InvestmentsController extends AppController{
-    public function index(){
-        
+   public function index(){
         $investmentsTable = $this->fetchTable('Investments');
         $allInvestments = $investmentsTable->find()->contain(['Tickers'])->all();
         //$allInvestments = $investmentsTable->find('all')->toArray();
@@ -13,7 +12,8 @@ class InvestmentsController extends AppController{
         //pr ($allInvestments);
         //die;
         $this->set('allInvestments', $allInvestments);
-    }
+   }
+
     public function add(){
         $data = $this->request->getData();//get POST data
 
@@ -32,8 +32,12 @@ class InvestmentsController extends AppController{
             
             $data['share'] = strip_tags($this->request->getData('share'));
             $data['bought_at'] = strip_tags($this->request->getData('bought_at'));
-
+            
             $newInvetsment = $investmentsTable->newEntity($data);
+
+            //get loggedinuserid
+            $user = $this->loggedInUser->get('id');//get user id from controller
+            $newInvetsment->set('user_id', $user);
             if($investmentsTable->save($newInvetsment)){//push data
                 $this->Flash->success("Investment added!");
                 //echo "Investment added!";
@@ -73,7 +77,6 @@ class InvestmentsController extends AppController{
 
        if ($investmentTable->save($investmentToEdit)) {//save will save changes
            $this->Flash->success("User has been updated!");
-
            return $this->redirect(['action' => 'index']);
        }
        else {

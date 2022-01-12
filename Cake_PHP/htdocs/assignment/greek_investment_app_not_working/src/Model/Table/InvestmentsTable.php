@@ -9,6 +9,7 @@ class InvestmentsTable extends Table{
     public function initialize(array $config):void
     {
         $this->belongsTo('Tickers');
+        $this->belongsTo('Users');
         $this->addBehavior('Timestamp');
     }
     public function validationDefault(Validator $validator): Validator

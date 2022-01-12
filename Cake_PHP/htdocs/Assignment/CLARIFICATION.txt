@@ -1,6 +1,7 @@
 Q5A)
 Get A list of trades and the like counter by a specific user (example facebook),
 create a table to store activities such as likes and store everyting in the table; tradeid, user, who liked, bool: like or dislike
+NOTE: likes should be a seperate table with a boolean
 
 Releted)
 One should use postman for get, post and delete methods

@@ -1,0 +1,10 @@
+View/AppView.php
+public function initialize(): void
+    {
+        $this->loadHelper('Authentication.Identity');
+
+    }
+php
+ $session =  $this->Identity->get('email');//get email from view
+
+$user = $this->loggedInUser->get('id');//get user id from controller

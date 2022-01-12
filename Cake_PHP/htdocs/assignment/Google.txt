@@ -1,0 +1,6 @@
+ID:
+881961358640-dr391orcmfcfjn02fadntu9ef1hki8sl.apps.googleusercontent.com
+Secret:
+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
+Redirect:
+http://localhost:8084/assignment/greek_investment_app/users/login?redirect=%2F

@@ -37,6 +37,8 @@ class AppController extends Controller
      *
      * @return void
      */
+    public $loggedInUser;
+
     public function initialize(): void
     {
         parent::initialize();
@@ -44,10 +46,28 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
 
+        $this->loadComponent('Authentication.Authentication');//loads the plugin
+
+
+        //if user is logged in...
+        if($user = $this->Authentication->getIdentity()){
+            //send the logged in user as $loggedInUser to ALL views (because we are in hte app controller)
+            $this->set('loggedInUser',$user);//VISABLE FROM ALL THE VIEWS
+            $this->loggedInUser = $user;//VISABLE FROM ALL THE CONTROLLERS (PUBLIC)
+        }
+
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // Configure the login action to not require authentication, preventing
+        // the infinite redirect loop issue
+        $this->Authentication->addUnauthenticatedActions(['login']);
     }
 }

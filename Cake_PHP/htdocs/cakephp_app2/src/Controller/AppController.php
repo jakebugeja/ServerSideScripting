@@ -49,8 +49,8 @@ class AppController extends Controller
 
         //cake php
         //reference: https://book.cakephp.org/4/en/tutorials-and-examples/cms/authentication.html#adding-password-hashing
-        // Add this line to check authentication result and lock your site
-        $this->loadComponent('Authentication.Authentication');
+        //add this for authentication to load the plugin downloaded from composer
+        $this->loadComponent('Authentication.Authentication'); 
 
         //if user is logged in...
         if($user = $this->Authentication->getIdentity()){
