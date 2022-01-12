@@ -29,7 +29,5 @@ class InvestmentsTable extends Table{
                 }])
             ->notEmptyString('bought_at',"bought at is required");
          return $validator;
-
-         
     }
 }

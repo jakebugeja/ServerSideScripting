@@ -8,7 +8,9 @@ class InvestmentsController extends AppController{
         $investmentsTable = $this->fetchTable('Investments');
         $allInvestments = $investmentsTable->find()->contain(['Tickers'])->all();
 
+
         $this->set('allInvestments', $allInvestments);
+
    }
 
     public function add(){
@@ -103,13 +105,11 @@ class InvestmentsController extends AppController{
         $this->set('selectTicker',$selectTicker);//send to view
         $this->set('selectUser',$selectUser);//send to view to populate
 
-        if ($this->request->is("post")) {
+        if ($this->request->is(['post', 'put'])) {
             //$user = $this->request->getData('user_id');//getting selected user id
             $data = $this->request->getData();//getting the rest of the form (disabled)
             
             //$investmentToShare->set('user_id', $user);
-            
-            //$investmentsTable = $this->fetchTable('Investments');
             $investmentToShare = $investmentsTable->newEntity($data);
             
             //pr($investmentToShare);
@@ -122,5 +122,13 @@ class InvestmentsController extends AppController{
             }
             
         }
+    }
+    public function like($id){
+        $investmentsTable = $this->fetchTable('Investments'); 
+        $investmentToEdit = $investmentsTable->get($id);
+
+        $investmentToEdit->like_counter =  ($investmentToEdit->like_counter)+1;
+        $investmentsTable->save($investmentToEdit);
+        return $this->redirect(['action' => 'index']);
     }
 }
