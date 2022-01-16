@@ -20,6 +20,7 @@ class UsersTable extends Table
     public function initialize(array $config):void
     {
         $this->hasMany('Investments');
+        $this->hasOne('Likes');
         $this->setDisplayField('email');
     }
 }

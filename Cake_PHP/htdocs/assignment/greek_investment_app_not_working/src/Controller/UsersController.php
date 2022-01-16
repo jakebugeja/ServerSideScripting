@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\Log\Log;
+use Cake\Log\Engine\FileLog;
 
 class UsersController extends AppController{
 
@@ -17,28 +19,22 @@ public function beforeFilter(\Cake\Event\EventInterface $event)
 
 public function login()
 {
-   /*
-   //GOOGLE LOGIN
-   require_once 'vendor/autoload.php';
-   //Make object of Google API Client for call Google API
-   $client = new Google_Client();
-   $client->setClientId('918875234064-ddvpp4c6kn6pupqge1kiki74l5p177v7.apps.googleusercontent.com');
-   $client->setClientSecret('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');
-   $client->setRedirectUri('http://localhost:8084/assignment/greek_investment_app/users/login?redirect=%2F');
-   $google_client->addScope('email');
-   $google_client->addScope('profile');
-   //start session on web page
-   session_start();
-   
-   $url = $client->createAuthUrl();
-   $this->set('clientAuth',$client);
-   //END GOOGLE LOGIN
-*/
     $this->request->allowMethod(['get', 'post']);
     $result = $this->Authentication->getResult();
     // regardless of POST or GET, redirect if user is logged in
     if ($result->isValid()) {
-        // redirect to /Users after login success
+         Log::setConfig('users', [
+            'className' => FileLog::class,
+            'path' => LOGS,
+            'levels' => ['info'],
+            'scopes' => ['users'],
+            'file' => 'users.log',
+        ]);
+        Log::info('Logging: userid={user}, {message}, ip={ipaddress}', ['scope' => ['users'], 'user' => $this->loggedInUser->get('id'),
+        'ipaddress' => $this->request->clientIp(),
+        'message'=> 'UsersController login() was successful']);
+
+
         $redirect = $this->request->getQuery('redirect', [
             'controller' => 'Investments',
             'action' => 'index',
@@ -49,6 +45,16 @@ public function login()
     // display error if user submitted and authentication failed
     if ($this->request->is('post') && !$result->isValid()) {
         $this->Flash->error('Invalid username or password');
+        Log::setConfig('users', [
+         'className' => FileLog::class,
+         'path' => LOGS,
+         'levels' => ['error'],
+         'scopes' => ['users'],
+         'file' => 'users.log',
+     ]);
+     Log::error('Logging: userid={user}, {message}, ip={ipaddress}', ['scope' => ['users'], 'user' => $this->loggedInUser->get('id'),
+     'ipaddress' => $this->request->clientIp(),
+     'message'=> 'UsersController login() was unsuccessful']);
     }
 }
     public function logout()
@@ -57,15 +63,36 @@ public function login()
     // regardless of POST or GET, redirect if user is logged in
     if ($result->isValid()) {
         $this->Authentication->logout();
-        return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        
+        Log::setConfig('users', [
+         'className' => FileLog::class,
+         'path' => LOGS,
+         'levels' => ['info'],
+         'scopes' => ['users'],
+         'file' => 'users.log',
+     ]);
+     Log::info('Logging: userid={user}, {message}, ip={ipaddress}', ['scope' => ['users'], 'user' => $this->loggedInUser->get('id'),
+     'ipaddress' => $this->request->clientIp(),
+     'message'=> 'UsersController logout() was successful']);
+
+      return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+    }else{
+      Log::setConfig('users', [
+         'className' => FileLog::class,
+         'path' => LOGS,
+         'levels' => ['error'],
+         'scopes' => ['users'],
+         'file' => 'users.log',
+     ]);
+     Log::error('Logging: userid={user}, {message}, ip={ipaddress}', ['scope' => ['users'], 'user' => $this->loggedInUser->get('id'),
+     'ipaddress' => $this->request->clientIp(),
+     'message'=> 'UsersController logout() was unsuccessful']);
     }
    }
    public function add()
    {
       
       if ($this->request->is("post")) {
-           
-         //this is the model defined in /src/Model/Table/UsersTable.php
          $usersTable = $this->fetchTable('Users');
 
          $data = $this->request->getData();//get data from form, store it in $data
@@ -97,17 +124,6 @@ public function login()
       
    }
    public function google(){
-      /*
-      background request
-      $_POST to retrieve the data from the google popup; 
-      $("googlebttn").click(function(){
-      $.post("TOUR ADDRESS URL/google", function(data == 1/0,  status == 400/others... [success/fail]){
-         alert("Data: " + data + "\nStatus: " + status);
-         });
-      });
-
-      return/echo 1;
-      */
       
    }
    public function userlist(){

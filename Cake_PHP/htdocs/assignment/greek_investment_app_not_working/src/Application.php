@@ -84,6 +84,20 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      */
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
+
+        $csrf = new CsrfProtectionMiddleware(['httponly'=>true]);
+    $csrf->skipCheckCallback(function($request) {            // Token check will be skipped when callback returns `true`.
+        $controller = $request->getParam('controller');
+        $action = $request->getParam('action');
+        if (is_null($controller) || is_null($action)) {
+            return false;
+        }
+        if (strcmp($controller,'Apis') == 0) {    // Skip token check for API URLs.
+            return true;
+        }
+        return false;
+    });
+
         $middlewareQueue
             ->add(new ErrorHandlerMiddleware(Configure::read('Error')))
             ->add(new RoutingMiddleware($this))

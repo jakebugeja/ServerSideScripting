@@ -10,6 +10,7 @@ class InvestmentsTable extends Table{
     {
         $this->belongsTo('Tickers');
         $this->belongsTo('Users');
+        $this->hasOne('Likes');
         $this->addBehavior('Timestamp');
     }
     public function validationDefault(Validator $validator): Validator

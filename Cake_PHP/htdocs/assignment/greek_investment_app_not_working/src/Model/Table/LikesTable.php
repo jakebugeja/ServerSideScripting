@@ -5,7 +5,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 
-class UsersInvestmentsTable extends Table
+class LikesTable extends Table
 {
     //Creating A Default Validation Set
     //reference: https://book.cakephp.org/4/en/orm/validation.html
@@ -19,6 +19,5 @@ class UsersInvestmentsTable extends Table
     //reference: https://book.cakephp.org/4/en/orm/associations.html#
     public function initialize(array $config):void
     {
-
     }
 }

@@ -1,16 +1,31 @@
 <?php
 namespace App\Controller;
-
+use Cake\Log\Log;
+use Cake\Log\Engine\FileLog;
 use Cake\ORM\Locator\LocatorAwareTrait;
 
 class InvestmentsController extends AppController{
    public function index(){
         $investmentsTable = $this->fetchTable('Investments');
+        $likesTable = $this->fetchTable('likes');
         $allInvestments = $investmentsTable->find()->contain(['Tickers'])->all();
+        $allLikes = $likesTable->find('all');
 
+        $user = $this->loggedInUser->get('email');//get user id from controller
+        $session = $this->loggedInUser->get('id');
+        //$first_name = $this->loggedInUser->get('first_name');
+        $last_name = $this->loggedInUser->get('last_name');
+
+        $usersTable = $this->fetchTable('Users');
+        $this->set('usersTable', $usersTable);
+
+        $this->set('user_username', $user);
+        
+        $this->set('user_session', $session);
 
         $this->set('allInvestments', $allInvestments);
-
+        $this->set('likesTable', $likesTable);
+        $this->set('allLikes', $allLikes);
    }
 
     public function add(){
@@ -42,10 +57,30 @@ class InvestmentsController extends AppController{
             $newInvetsment->set('user_id', $user);
             if($investmentsTable->save($newInvetsment)){//push data
                 $this->Flash->success("Investment added!");
-                //echo "Investment added!";
+                Log::setConfig('trades', [
+                    'className' => FileLog::class,
+                    'path' => LOGS,
+                    'levels' => ['info'],
+                    'scopes' => ['trades'],
+                    'file' => 'trades.log',
+                ]);
+                Log::info('Logging: userid={user}, {message}, ip={ipaddress}, tradeid={trade_id}', ['scope' => ['trades'], 'user' => $this->loggedInUser->get('id'),
+                'ipaddress' => $this->request->clientIp(),
+                'message'=> 'InvestmentController add() was successful',
+                'trade_id'=> $newInvetsment->id]);
             }else{
                 $this->Flash->error("Error: InvestmentsController -- Investment not added");
-                //echo "Error: InvestmentsController -- Investment not added";
+                Log::setConfig('trades', [
+                    'className' => FileLog::class,
+                    'path' => LOGS,
+                    'levels' => ['error'],
+                    'scopes' => ['trades'],
+                    'file' => 'trades.log',
+                ]);
+                Log::error('Logging: userid={user}, {message}, ip={ipaddress}, tradeid={trade_id}', ['scope' => ['trades'], 'user' => $this->loggedInUser->get('id'),
+                'ipaddress' => $this->request->clientIp(),
+                'message'=> 'InvestmentController add() was unsuccessful',
+                'trade_id'=> $newInvetsment->id]);
             }
         }
     }
@@ -55,11 +90,24 @@ class InvestmentsController extends AppController{
         $investmentsTable = $this->fetchTable('Investments'); 
         $investmentToDelete = $investmentsTable->get($id);
 
-        if($investmentsTable->delete($investmentToDelete)){
-            $this->Flash->success("Investment has been removed!");
-         }else{
-            $this->Flash->error("Could not remove investment!");
-         }
+        $likesTable = $this->fetchTable('Likes'); 
+        $likesToDelete = $likesTable->find()->where(['investment_id'== $id])->first();
+        $likesExists = $likesTable->exists(['investment_id' => $id]);
+        if($likesExists){//delete likes table before deleting the investments table due to errors
+            $likesTable->delete($likesToDelete);
+            if($investmentsTable->delete($investmentToDelete)){
+                $this->Flash->success("Investment has been removed!");
+            }else{
+                $this->Flash->error("Could not remove investment!");
+            }
+        }else{
+            if($investmentsTable->delete($investmentToDelete)){
+                $this->Flash->success("Investment has been removed!");
+            }else{
+                $this->Flash->error("Could not remove investment!");
+            }
+        }
+        
          //delete.php not needed
          return $this->redirect(['action' => 'index']);
     }
@@ -107,7 +155,7 @@ class InvestmentsController extends AppController{
 
         if ($this->request->is(['post', 'put'])) {
             //$user = $this->request->getData('user_id');//getting selected user id
-            $data = $this->request->getData();//getting the rest of the form (disabled)
+            $data = $this->request->getData();//getting the rest of the form 
             
             //$investmentToShare->set('user_id', $user);
             $investmentToShare = $investmentsTable->newEntity($data);
@@ -115,7 +163,7 @@ class InvestmentsController extends AppController{
             //pr($investmentToShare);
             if($investmentsTable->save($investmentToShare)){//push data
                 $this->Flash->success("Investment shared!");
-                echo "Investment added!";
+                echo "Investment shared!";
             }else{
                 $this->Flash->error("Error: InvestmentsController -- Investment not sahred");
                 echo "Error: InvestmentsController -- Investment not added";
@@ -129,6 +177,13 @@ class InvestmentsController extends AppController{
 
         $investmentToEdit->like_counter =  ($investmentToEdit->like_counter)+1;
         $investmentsTable->save($investmentToEdit);
-        return $this->redirect(['action' => 'index']);
+
+        //redirect to index inside Investments controller
+        $redirect = $this->request->getQuery('redirect', [
+            'controller' => 'Investments',
+            'action' => 'index',
+        ]);
+
+        return $this->redirect($redirect);
     }
 }

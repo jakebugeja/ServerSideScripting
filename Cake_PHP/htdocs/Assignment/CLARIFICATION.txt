@@ -13,10 +13,4 @@ Api will give you user data
 Communicate with the server (send ajax request, one can use jquery, see w3schools) to get a response from action
 Redirect user after data is retrieved
 
-example
-public function loginWithFb/Google(){
-      //$POST
-
-      return 1;//if ajax response is true(login successful) return 1
-      die;
-   }
+Please make sure to upload your word document containing all the code that you've written (Controllers, Views, and Models). This should be separate (i.e. not added in the zip file).
