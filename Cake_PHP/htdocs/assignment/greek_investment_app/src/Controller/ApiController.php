@@ -60,7 +60,7 @@ class ApiController extends AppController{
     }
    
    public function delete($id){///api/80.json
-        $this->request->allowMethod(['delete']);
+        //$this->request->allowMethod(['delete']);
         $investmentsTable = $this->fetchTable('Investments'); 
         $investmentToDelete = $investmentsTable->get($id);
 
